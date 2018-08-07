@@ -1,0 +1,6 @@
+[submodule "google-images-download"]
+	path = google-images-download
+	url = git@github.com:hardikvasa/google-images-download.git
+[submodule "externals/google-images-download"]
+	path = externals/google-images-download
+	url = git@github.com:hardikvasa/google-images-download.git
