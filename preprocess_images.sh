@@ -1,6 +1,7 @@
 #!/bin/bash
 
-SIZESTRING="128X128"
+CUR_DIR=`pwd`
+SIZESTRING="64x64"
 
 POSARG=()
 
@@ -28,18 +29,18 @@ done
 
 set -- "${POSARG[@]}"
 
-CURRENT_DIR=`pwd`
-
 mkdir -p $OUT_DIR
 
-cd $IN_DIR
-
-PIC_LIST=`ls`
+PIC_LIST=`ls $IN_DIR`
 
 COUNT=0
 
 for PIC in $PIC_LIST
 do
-    eval convert $IN_DIR$PIC -thumbnail "'"${SIZESTRING}">'" -background black -gravity center -extent $SIZESTRING $OUT_DIR$COUNT.png
+    echo "writing" $OUT_DIR$COUNT.png
+
+    convert $IN_DIR$PIC -thumbnail $SIZESTRING -background black -gravity center -extent $SIZESTRING $OUT_DIR$COUNT.png
+    convert $OUT_DIR$COUNT.png -alpha off $OUT_DIR$COUNT.png
+
     COUNT=`expr $COUNT + 1`
 done

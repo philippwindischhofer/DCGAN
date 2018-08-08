@@ -5,7 +5,7 @@ from google_images_download import googleimagesdownload
 
 def main():
     dloader = googleimagesdownload()
-    dloader.download({"keywords": "cake", "limit": 200, "chromedriver": "/usr/bin/chromedriver", "no_numbering": True})
+    dloader.download({"keywords": "cake", "limit": 1000, "chromedriver": "/usr/bin/chromedriver", "no_numbering": True, "output_directory": "data_raw"})
     print("test")
 
 if __name__ == "__main__":

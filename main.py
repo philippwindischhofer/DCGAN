@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import imageio
 import numpy as np
 from pngreader import pngreader
@@ -16,13 +18,11 @@ def save_sample(gen, epoch):
 
     gen_output = 127.5 * (gen_output + 1.0)
     
-    print(np.shape(gen_output))
-    
     # save the generated output images
-    imageio.imwrite("trained_{}.png".format(epoch), gen_output[0])    
+    imageio.imwrite("training/trained_{}.png".format(epoch), gen_output[0])    
 
 def main():
-    training_data = pngreader.load_files("mnist/*.png")
+    training_data = pngreader.load_files("cake/*.png")
 
     gen, disc, adv = factory.create_adversarial_pair()
     disc.summary()
@@ -31,7 +31,7 @@ def main():
     train = gan_trainer(disc, gen, adv, training_data)
     
     # perform the training for a small number of batches
-    train.train(350, save_sample)
+    train.train(2000, save_sample)
 
     print("done")
 
