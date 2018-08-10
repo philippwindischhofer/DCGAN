@@ -9,24 +9,21 @@ class gan_trainer:
 
         self.halfbatch_size = 64
 
-    def train(self, number_epochs, epoch_callback):
+    def train(self, number_batches, batch_callback):
         training_dataset_length = np.shape(self.training_data)[0]
-
-        batch_start = 0
+        print(np.shape(self.training_data))
         
-        for epoch in range(number_epochs):            
+        for batch in range(number_batches):            
             # first, train the discriminator in a standalone way
-            if batch_start + self.halfbatch_size > len(self.training_data):
-                batch_start = 0
 
             print("============================================================")
-            print(" batch {}: starting from {}".format(epoch, batch_start))
-            print("============================================================")
-                
+            print(" batch {}".format(batch))
+             
             # prepare discriminator training data
-            # inds = np.random.randint(0, training_dataset_length, size = self.halfbatch_size)
-            # samples = self.training_data[inds]
-            samples = self.training_data[batch_start:batch_start + self.halfbatch_size]
+            inds = np.random.randint(0, training_dataset_length, size = self.halfbatch_size)
+            print(" using samples {}".format(str(inds)))
+            
+            samples = self.training_data[inds]
             samples_target = np.full(self.halfbatch_size, 1.0)
 
             noise = np.random.uniform(-1.0, 1.0, size = (self.halfbatch_size, 100))
@@ -46,5 +43,6 @@ class gan_trainer:
             loss, acc = self.adv.train_on_batch(training_in, training_target)
             print("adversarial pair: loss = {}, acc = {}".format(loss, acc))
 
-            epoch_callback(self.gen, epoch)
-            batch_start += self.halfbatch_size
+            batch_callback(self.gen, batch)
+
+            print("============================================================")

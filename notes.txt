@@ -1,2 +1,3 @@
-googleimagesdownload -k cake -l 10000 --chromedriver /usr/bin/chromedriver
-
+python2 get_images.py
+./preprocess_images.sh --in ./data_raw/cake/ --out ./cake/
+python2 main.py

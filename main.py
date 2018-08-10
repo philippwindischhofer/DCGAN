@@ -22,7 +22,7 @@ def save_sample(gen, epoch):
     imageio.imwrite("training/trained_{}.png".format(epoch), gen_output[0])    
 
 def main():
-    training_data = pngreader.load_files("cake/*.png")
+    training_data = pngreader.load_files("chocolate_cake/*.png")
 
     gen, disc, adv = factory.create_adversarial_pair()
     disc.summary()
@@ -31,7 +31,7 @@ def main():
     train = gan_trainer(disc, gen, adv, training_data)
     
     # perform the training for a small number of batches
-    train.train(2000, save_sample)
+    train.train(20000, save_sample)
 
     print("done")
 

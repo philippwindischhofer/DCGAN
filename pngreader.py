@@ -22,11 +22,15 @@ class pngreader:
                 cur_im = np.moveaxis(cur_im, 0, 2)
             
             #print("loading images: {:3.0f}% done".format(100 * index / number_files), end = '\r')
-            
-            images.append(cur_im)
+
+            if np.shape(cur_im) != (64,64,3):
+                print("{}: {} -> is not used".format(cur_file, np.shape(cur_im)))
+            else:
+                images.append(cur_im)
 
         #print("loading images: 100% done")
         print("done")
+
         imagearr = np.array(images)
 
         imagearr = imagearr / 127.5 - 1.0
