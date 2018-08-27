@@ -22,7 +22,9 @@ def save_sample(gen, epoch):
     imageio.imwrite("training/trained_{}.png".format(epoch), gen_output[0])    
 
 def main():
-    training_data = pngreader.load_files("chocolate_cake/*.png")
+    #training_data = pngreader.load_files("cake/*.png")
+    training_data = pngreader.load_files("cifar/automobile/*.png")
+    #training_data = pngreader.load_files("cake_round_small/*.png")
 
     gen, disc, adv = factory.create_adversarial_pair()
     disc.summary()

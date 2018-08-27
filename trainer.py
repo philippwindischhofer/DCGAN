@@ -22,13 +22,15 @@ class gan_trainer:
             # prepare discriminator training data
             inds = np.random.randint(0, training_dataset_length, size = self.halfbatch_size)
             print(" using samples {}".format(str(inds)))
-            
-            samples = self.training_data[inds]
-            samples_target = np.full(self.halfbatch_size, 1.0)
 
+            # true samples: target == 0.0
+            samples = self.training_data[inds]
+            samples_target = np.random.uniform(0.0, 0.1, self.halfbatch_size)
+
+            # generated samples: target == 1.0
             noise = np.random.uniform(-1.0, 1.0, size = (self.halfbatch_size, 100))
             samples_gen = self.gen.predict(noise)
-            samples_gen_target = np.full(self.halfbatch_size, 0.0)
+            samples_gen_target = np.random.uniform(0.9, 1.0, self.halfbatch_size)
 
             training_in = np.concatenate([samples, samples_gen])
             training_target = np.concatenate([samples_target, samples_gen_target])
@@ -38,7 +40,7 @@ class gan_trainer:
             
             # then, train the full adversarial pair with frozen discriminator weights: noise as input, 1.0 as target output
             training_in = np.random.uniform(-1.0, 1.0, size = (self.halfbatch_size, 100))
-            training_target = np.full(self.halfbatch_size, 1.0)
+            training_target = np.full(self.halfbatch_size, 0.0)
 
             loss, acc = self.adv.train_on_batch(training_in, training_target)
             print("adversarial pair: loss = {}, acc = {}".format(loss, acc))

@@ -23,7 +23,7 @@ class pngreader:
             
             #print("loading images: {:3.0f}% done".format(100 * index / number_files), end = '\r')
 
-            if np.shape(cur_im) != (64,64,3):
+            if np.shape(cur_im) != (32,32,3):
                 print("{}: {} -> is not used".format(cur_file, np.shape(cur_im)))
             else:
                 images.append(cur_im)

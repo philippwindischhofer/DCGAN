@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CUR_DIR=`pwd`
-SIZESTRING="64x64"
+SIZESTRING="32x32"
 
 POSARG=()
 
@@ -38,8 +38,9 @@ COUNT=0
 for PIC in $PIC_LIST
 do
     echo "writing" $OUT_DIR$COUNT.png
-
-    convert $IN_DIR$PIC -thumbnail $SIZESTRING -background black -gravity center -extent $SIZESTRING $OUT_DIR$COUNT.png
+    
+    #convert $IN_DIR$PIC -thumbnail $SIZESTRING -background black -gravity center -extent $SIZESTRING $OUT_DIR$COUNT.png
+    convert $IN_DIR$PIC -thumbnail $SIZESTRING"^" -gravity center -extent $SIZESTRING $OUT_DIR$COUNT.png
     convert $OUT_DIR$COUNT.png -alpha off $OUT_DIR$COUNT.png
 
     COUNT=`expr $COUNT + 1`
